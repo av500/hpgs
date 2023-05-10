@@ -1016,7 +1016,7 @@ HPGS_API int hpgs_image_set_palette (hpgs_image *image,
 
 HPGS_API hpgs_png_image *hpgs_new_png_image(int width, int height,
                                             int depth, hpgs_bool palette,
-                                            hpgs_bool do_rop3);
+                                            hpgs_bool do_rop3, hpgs_bool darkmode);
 
 HPGS_API int hpgs_png_image_set_compression(hpgs_png_image *pim, int compression);
 

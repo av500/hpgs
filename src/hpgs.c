@@ -183,6 +183,7 @@ static int help (void)
 	   "       --no-rop3 ... Suppress usage of ROP3 raster operations.\n"
 	   "       -c ... Specifiy the compression level for png writing.\n"
 	   "       -r ... Specifiy the device resolution in dpi.\n"
+	   "       --darkmode ... make the background dark (png_256 only)\n"
 	   "              If no y-resolution is given, the y-resolution\n"
 	   "              is set to the same value as the x-resolution.\n"
 	   "       -p ... Specifiy the maximum pixel size of the device.\n"
@@ -351,6 +352,7 @@ int main(int argc, const char *argv[])
   hpgs_bool ignore_lt=HPGS_FALSE;
   hpgs_bool do_linewidth=HPGS_TRUE;
   hpgs_bool do_rop3=HPGS_TRUE;
+  hpgs_bool darkmode=HPGS_FALSE;
   int verbosity=1;
   int compression=6;
   hpgs_bool antialias=HPGS_FALSE;
@@ -637,6 +639,10 @@ int main(int argc, const char *argv[])
       else if (strcmp(argv[0],"--no-linetype") == 0)
         {
           ignore_lt = HPGS_TRUE;
+	}
+      else if (strcmp(argv[0],"--darkmode") == 0)
+        {
+          darkmode = HPGS_TRUE;
 	}
       else if (strcmp(argv[0],"--rop3") == 0)
 	{
@@ -948,7 +954,7 @@ int main(int argc, const char *argv[])
 	  y_px_size = y_dpi * (bbox.ury-bbox.lly) / 72.0;
 	}
 
-      image = hpgs_new_png_image(x_px_size,y_px_size,depth,palette,do_rop3);
+      image = hpgs_new_png_image(x_px_size,y_px_size,depth,palette,do_rop3,darkmode);
 	
       if (!image)
 	{

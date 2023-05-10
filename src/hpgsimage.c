@@ -1005,7 +1005,7 @@ static hpgs_image_vtable pim_vtable_256 =
 */
 hpgs_png_image *hpgs_new_png_image(int width, int height,
 				   int depth, hpgs_bool palette,
-                                   hpgs_bool do_rop3)
+                                   hpgs_bool do_rop3, hpgs_bool darkmode)
 {
   hpgs_png_image *ret=(hpgs_png_image *)malloc(sizeof(hpgs_png_image));
 
@@ -1057,9 +1057,17 @@ hpgs_png_image *hpgs_new_png_image(int width, int height,
 	  ret->inherited.palette_ncolors = 0;
 
 	  // define black and white a color 0 resp. 1
-	  c.r = c.g = c.b = 0;
+	  if(darkmode) {
+            c.r = c.g = c.b = 255;
+          } else {
+	    c.r = c.g = c.b = 0;
+	  }
 	  hpgs_image_define_color (&ret->inherited,&c);
-	  c.r = c.g = c.b = 255;
+	  if(darkmode) {
+            c.r = c.g = c.b = 0;
+	  } else {
+	    c.r = c.g = c.b = 255;
+	  }
 	  hpgs_image_define_color (&ret->inherited,&c);
 	}
       else

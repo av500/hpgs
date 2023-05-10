@@ -1048,7 +1048,7 @@ static int pcl_fill_scanline(hpgs_reader *reader)
           reader->pcl_image = (hpgs_image *)
             hpgs_new_png_image(reader->pcl_raster_src_width,
                                reader->pcl_raster_src_height,
-                               8,HPGS_TRUE,HPGS_FALSE);
+                               8,HPGS_TRUE,HPGS_FALSE,HPGS_FALSE);
 
           // pull in palette
           if (reader->pcl_image &&
@@ -1071,7 +1071,7 @@ static int pcl_fill_scanline(hpgs_reader *reader)
           reader->pcl_image = (hpgs_image *)
             hpgs_new_png_image(reader->pcl_raster_src_width,
                                reader->pcl_raster_src_height,
-                               8,HPGS_TRUE,HPGS_FALSE);
+                               8,HPGS_TRUE,HPGS_FALSE,HPGS_FALSE);
           // set palette
           if (reader->pcl_image)
             {
@@ -1092,7 +1092,7 @@ static int pcl_fill_scanline(hpgs_reader *reader)
           reader->pcl_image = (hpgs_image *)
             hpgs_new_png_image(reader->pcl_raster_src_width,
                                reader->pcl_raster_src_height,
-                               24,HPGS_FALSE,HPGS_FALSE);
+                               24,HPGS_FALSE,HPGS_FALSE,HPGS_FALSE);
           break;
 
         default:
