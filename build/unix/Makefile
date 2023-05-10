@@ -14,7 +14,7 @@ COPT=-g -O2
 
 CFLAGS=$(COPT) -Wall -I$(srcdir)
 LDFLAGS=
-LIBS=-lpng -lz -lm -lpthread -ldl
+LIBS=-lpng12 -lz -lm -lpthread -ldl
 
 AR=ar
 ARFLAGS=cq
