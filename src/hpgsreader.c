@@ -56,7 +56,8 @@
    if the system is out of memory.
 */
 hpgs_reader *hpgs_new_reader(hpgs_istream *in, hpgs_device *dev,
-                             hpgs_bool multipage, int v)
+                             hpgs_bool multipage, int v,
+                             hpgs_bool ignore_lt )
 {
   int i;
   hpgs_reader *ret = (hpgs_reader *)malloc(sizeof(hpgs_reader));
@@ -73,6 +74,7 @@ hpgs_reader *hpgs_new_reader(hpgs_istream *in, hpgs_device *dev,
   ret->device    = dev;
   ret->verbosity = v;
   ret->lw_factor = 1.0; 
+  ret->ignore_lt = ignore_lt;
 
   ret->plotsize_device = 0;
   ret->current_page = multipage ? 1 : -1;

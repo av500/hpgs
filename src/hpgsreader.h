@@ -167,6 +167,7 @@ struct hpgs_reader_st
 
   int verbosity; /*!< The verbosity level in effect. */
 
+  hpgs_bool ignore_lt; //!< Do we ignore the LT command?
   double lw_factor;      /*!< The linewidth scaling factor. */
   /*@{ */
   /*! The paper size in PostScript pt (1/72 inch). */

@@ -329,6 +329,9 @@ int hpgs_reader_do_LT(hpgs_reader *reader)
       return 0;
     }
 
+  if(reader->ignore_lt) {
+    linetype = 0;
+  }
   // line type are store as percentages.
   patlen *= 0.01;
 

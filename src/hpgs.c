@@ -161,6 +161,7 @@ static int help (void)
 	   "              calculation for -i (default behaviour).\n"
 	   "       --no-linewidth-size ... Ignore linewidths in the plotsize\n"
 	   "              calculation for -i.\n"
+	   "       --no-linetype ... Ignore linetypes\n"
 	   "       -v ... Increase verbosity.\n"
 	   "       -q ... Decrease verbosity, be quiet.\n"
 	   "       -o <out> ... specifiy the output filename. If not specified, write\n"
@@ -347,6 +348,7 @@ int main(int argc, const char *argv[])
   int y_px_size=0;
   hpgs_bool multipage=HPGS_FALSE;
   hpgs_bool ignore_ps=HPGS_FALSE;
+  hpgs_bool ignore_lt=HPGS_FALSE;
   hpgs_bool do_linewidth=HPGS_TRUE;
   hpgs_bool do_rop3=HPGS_TRUE;
   int verbosity=1;
@@ -632,6 +634,10 @@ int main(int argc, const char *argv[])
   	{
 	  do_linewidth = HPGS_FALSE;
 	}
+      else if (strcmp(argv[0],"--no-linetype") == 0)
+        {
+          ignore_lt = HPGS_TRUE;
+	}
       else if (strcmp(argv[0],"--rop3") == 0)
 	{
 	  do_rop3 = HPGS_TRUE;
@@ -736,7 +742,7 @@ int main(int argc, const char *argv[])
     }
 
   reader = hpgs_new_reader(in,size_dev,
-			   multipage,verbosity);
+			   multipage,verbosity,ignore_lt);
 
   if (!reader)
     {

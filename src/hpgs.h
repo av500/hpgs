@@ -847,7 +847,7 @@ __inline__ int hpgs_device_capabilities (hpgs_device *_this)
 typedef struct hpgs_reader_st hpgs_reader;
 
 HPGS_API hpgs_reader *hpgs_new_reader(hpgs_istream *in, hpgs_device *dev,
-                                      hpgs_bool multipage, int v);
+                                      hpgs_bool multipage, int v, hpgs_bool ignore_lt);
 
 HPGS_API void hpgs_reader_set_lw_factor(hpgs_reader *reader, double lw_factor);
 
