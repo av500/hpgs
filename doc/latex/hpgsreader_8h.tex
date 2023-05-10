@@ -1,0 +1,506 @@
+\section{hpgsreader.h File Reference}
+\label{hpgsreader_8h}\index{hpgsreader.h@{hpgsreader.h}}
+
+
+The private interfaces for implementing the HPGL reader.  
+
+
+{\ttfamily \#include $<$hpgs.h$>$}\par
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf hpgs\_\-reader\_\-poly\_\-point\_\-st}
+\begin{DoxyCompactList}\small\item\em A point in hte HPGL polygon buffer. \item\end{DoxyCompactList}\item 
+struct {\bf hpgs\_\-reader\_\-pcl\_\-palette\_\-st}
+\begin{DoxyCompactList}\small\item\em A PCL palette as used by PCL push/pop palette. \item\end{DoxyCompactList}\item 
+struct {\bf hpgs\_\-reader\_\-st}
+\begin{DoxyCompactList}\small\item\em A HPGL interpreter. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries MM\_\-TO\_\-PT}~(72.0 / 25.4)\label{hpgsreader_8h_a0819501dbaaaafbee07073554f276b65}
+
+\item 
+\#define {\bfseries HP\_\-TO\_\-PT}~(72.0 / (25.4 $\ast$ 40.0))\label{hpgsreader_8h_a63d937b5a3ae35e7f6a6e73b323d4f49}
+
+\item 
+\#define {\bfseries MAKE\_\-COMMAND}(a, b)~(((int)(a) $<$$<$ 8) + (b))\label{hpgsreader_8h_a91791e99c63cc542fdbaad05b341aff9}
+
+\item 
+\#define {\bfseries AA\_\-CMD}~MAKE\_\-COMMAND('A','A')\label{hpgsreader_8h_ab6b399d9cb7fdd99b09e8546f89ab737}
+
+\item 
+\#define {\bfseries AC\_\-CMD}~MAKE\_\-COMMAND('A','C')\label{hpgsreader_8h_af4269d5f9a7846aed0b3428c682ea73b}
+
+\item 
+\#define {\bfseries AD\_\-CMD}~MAKE\_\-COMMAND('A','D')\label{hpgsreader_8h_a23e3ee2da83f429b7f3087d3ff8506b8}
+
+\item 
+\#define {\bfseries AR\_\-CMD}~MAKE\_\-COMMAND('A','R')\label{hpgsreader_8h_a15ed5c6b0904db067dd812547e9323f3}
+
+\item 
+\#define {\bfseries AT\_\-CMD}~MAKE\_\-COMMAND('A','T')\label{hpgsreader_8h_a5209e58cb4b467793fa1f2343afad77a}
+
+\item 
+\#define {\bfseries BP\_\-CMD}~MAKE\_\-COMMAND('B','P')\label{hpgsreader_8h_a4ffb85aa406671daafc5fff662e7aa76}
+
+\item 
+\#define {\bfseries BR\_\-CMD}~MAKE\_\-COMMAND('B','R')\label{hpgsreader_8h_a501f74bb295f6c7f7838f9775824c032}
+
+\item 
+\#define {\bfseries BZ\_\-CMD}~MAKE\_\-COMMAND('B','Z')\label{hpgsreader_8h_a59cffa12dba6d8af2c830f2e28982b91}
+
+\item 
+\#define {\bfseries CI\_\-CMD}~MAKE\_\-COMMAND('C','I')\label{hpgsreader_8h_ae286c7001d99f82c8fad55006953fe2a}
+
+\item 
+\#define {\bfseries CO\_\-CMD}~MAKE\_\-COMMAND('C','O')\label{hpgsreader_8h_af27a4b2633fff72e19ff94548a9b80df}
+
+\item 
+\#define {\bfseries CP\_\-CMD}~MAKE\_\-COMMAND('C','P')\label{hpgsreader_8h_a020935f8642573a342d5a719dfa539aa}
+
+\item 
+\#define {\bfseries CR\_\-CMD}~MAKE\_\-COMMAND('C','R')\label{hpgsreader_8h_a2cc9d18b4fb56992239116e98636c937}
+
+\item 
+\#define {\bfseries DI\_\-CMD}~MAKE\_\-COMMAND('D','I')\label{hpgsreader_8h_a0af849564d5f967cb1a2939a60716735}
+
+\item 
+\#define {\bfseries DR\_\-CMD}~MAKE\_\-COMMAND('D','R')\label{hpgsreader_8h_a816e86a2c3fced4d09433f3a84f2fcc7}
+
+\item 
+\#define {\bfseries DT\_\-CMD}~MAKE\_\-COMMAND('D','T')\label{hpgsreader_8h_a93853a2689d035c7c4dc2097e8e3840d}
+
+\item 
+\#define {\bfseries DV\_\-CMD}~MAKE\_\-COMMAND('D','V')\label{hpgsreader_8h_a3cf7d74c1419fd9a739999372fbe107b}
+
+\item 
+\#define {\bfseries EA\_\-CMD}~MAKE\_\-COMMAND('E','A')\label{hpgsreader_8h_ae57c4b954849c48758f6e1ad1d9cf467}
+
+\item 
+\#define {\bfseries EP\_\-CMD}~MAKE\_\-COMMAND('E','P')\label{hpgsreader_8h_acd4fcdfc4e6dbfb398b37828554a6132}
+
+\item 
+\#define {\bfseries ER\_\-CMD}~MAKE\_\-COMMAND('E','R')\label{hpgsreader_8h_aa84400acb77816daef666ab03fc1d95d}
+
+\item 
+\#define {\bfseries ES\_\-CMD}~MAKE\_\-COMMAND('E','S')\label{hpgsreader_8h_ad14bc6ae8f5dc14439025f4154685c50}
+
+\item 
+\#define {\bfseries EW\_\-CMD}~MAKE\_\-COMMAND('E','W')\label{hpgsreader_8h_a05ccbfd46ce9c97f6918862c018a26a5}
+
+\item 
+\#define {\bfseries FP\_\-CMD}~MAKE\_\-COMMAND('F','P')\label{hpgsreader_8h_a01ad494f6c0ccf72b446e2a7ff1343fe}
+
+\item 
+\#define {\bfseries FR\_\-CMD}~MAKE\_\-COMMAND('F','R')\label{hpgsreader_8h_aa2c9b1dc809a17b6e0b1c5aa30861c56}
+
+\item 
+\#define {\bfseries FT\_\-CMD}~MAKE\_\-COMMAND('F','T')\label{hpgsreader_8h_a88bf88ba2e8b7d6a7c508515864f4936}
+
+\item 
+\#define {\bfseries IN\_\-CMD}~MAKE\_\-COMMAND('I','N')\label{hpgsreader_8h_ae6d20bf287ebdfa2cf4264d10f4dad67}
+
+\item 
+\#define {\bfseries IP\_\-CMD}~MAKE\_\-COMMAND('I','P')\label{hpgsreader_8h_af435fa20a5e0578e5de7200790b6cedb}
+
+\item 
+\#define {\bfseries IR\_\-CMD}~MAKE\_\-COMMAND('I','R')\label{hpgsreader_8h_a3442212d2aaf4032596e65577223e353}
+
+\item 
+\#define {\bfseries IW\_\-CMD}~MAKE\_\-COMMAND('I','W')\label{hpgsreader_8h_a32d9b8ad9f11e5cfd42847e9359a0822}
+
+\item 
+\#define {\bfseries LA\_\-CMD}~MAKE\_\-COMMAND('L','A')\label{hpgsreader_8h_aa204b94ee83fba02e985379006fd1802}
+
+\item 
+\#define {\bfseries LB\_\-CMD}~MAKE\_\-COMMAND('L','B')\label{hpgsreader_8h_a367a50a3eb7a106d80484edc7192864b}
+
+\item 
+\#define {\bfseries LO\_\-CMD}~MAKE\_\-COMMAND('L','O')\label{hpgsreader_8h_a3ebc1b1470bdb90231fb4f77637e3168}
+
+\item 
+\#define {\bfseries LT\_\-CMD}~MAKE\_\-COMMAND('L','T')\label{hpgsreader_8h_ac69ac0b854f70d6f69622ef667fe2e87}
+
+\item 
+\#define {\bfseries MC\_\-CMD}~MAKE\_\-COMMAND('M','C')\label{hpgsreader_8h_a6ed94d30762f635b033570a05bad8944}
+
+\item 
+\#define {\bfseries MG\_\-CMD}~MAKE\_\-COMMAND('M','G')\label{hpgsreader_8h_a9c923deff4222b75a6dd50d625022cc4}
+
+\item 
+\#define {\bfseries NP\_\-CMD}~MAKE\_\-COMMAND('N','P')\label{hpgsreader_8h_aea5ed1063a8fce20aadfd44cb5f3dd1e}
+
+\item 
+\#define {\bfseries PA\_\-CMD}~MAKE\_\-COMMAND('P','A')\label{hpgsreader_8h_afbc14c1b74f8161aca374090231277b0}
+
+\item 
+\#define {\bfseries PC\_\-CMD}~MAKE\_\-COMMAND('P','C')\label{hpgsreader_8h_af51a57014af907d0618e6d44670632e5}
+
+\item 
+\#define {\bfseries PD\_\-CMD}~MAKE\_\-COMMAND('P','D')\label{hpgsreader_8h_a80eea1f2d09c86c872c653954e4938a7}
+
+\item 
+\#define {\bfseries PE\_\-CMD}~MAKE\_\-COMMAND('P','E')\label{hpgsreader_8h_a0a538e2c30620231a95370799cd4ab4b}
+
+\item 
+\#define {\bfseries PG\_\-CMD}~MAKE\_\-COMMAND('P','G')\label{hpgsreader_8h_a102e68acd6bb5dff13c825c0e101a2f3}
+
+\item 
+\#define {\bfseries PM\_\-CMD}~MAKE\_\-COMMAND('P','M')\label{hpgsreader_8h_a95fcd2cfa1a40a390a5bfd826d26ac25}
+
+\item 
+\#define {\bfseries PP\_\-CMD}~MAKE\_\-COMMAND('P','P')\label{hpgsreader_8h_a2ebc61f0172c255c1464ed7c06ced098}
+
+\item 
+\#define {\bfseries PR\_\-CMD}~MAKE\_\-COMMAND('P','R')\label{hpgsreader_8h_a137f6a61101d5af0e0dba26cf3294612}
+
+\item 
+\#define {\bfseries PS\_\-CMD}~MAKE\_\-COMMAND('P','S')\label{hpgsreader_8h_a2d4f3a70b40cf9ead0003ca419fd126a}
+
+\item 
+\#define {\bfseries PU\_\-CMD}~MAKE\_\-COMMAND('P','U')\label{hpgsreader_8h_a97b148aa6ce573869dc6da7ffc1ecfa3}
+
+\item 
+\#define {\bfseries PW\_\-CMD}~MAKE\_\-COMMAND('P','W')\label{hpgsreader_8h_a253009341e396cb3a0493b421062ebbc}
+
+\item 
+\#define {\bfseries RA\_\-CMD}~MAKE\_\-COMMAND('R','A')\label{hpgsreader_8h_a2d8f0924de536036e8877a98f29c3eb1}
+
+\item 
+\#define {\bfseries RO\_\-CMD}~MAKE\_\-COMMAND('R','O')\label{hpgsreader_8h_aa22584e5191b9ab756f5132ab9f40456}
+
+\item 
+\#define {\bfseries RR\_\-CMD}~MAKE\_\-COMMAND('R','R')\label{hpgsreader_8h_adec0cb8774ef6940e9ef34954096d27b}
+
+\item 
+\#define {\bfseries RT\_\-CMD}~MAKE\_\-COMMAND('R','T')\label{hpgsreader_8h_a43b6a795fcb6f9acfac38611905d16f6}
+
+\item 
+\#define {\bfseries SA\_\-CMD}~MAKE\_\-COMMAND('S','A')\label{hpgsreader_8h_a94c09df58c465f0e6f2e7d0095a7528a}
+
+\item 
+\#define {\bfseries SC\_\-CMD}~MAKE\_\-COMMAND('S','C')\label{hpgsreader_8h_a56959c6d741cf2385a9e3e371c998795}
+
+\item 
+\#define {\bfseries SD\_\-CMD}~MAKE\_\-COMMAND('S','D')\label{hpgsreader_8h_a3a714a780ec94c00437096eee9f49716}
+
+\item 
+\#define {\bfseries SI\_\-CMD}~MAKE\_\-COMMAND('S','I')\label{hpgsreader_8h_a2c486800b74c3f310e4dc777acae957a}
+
+\item 
+\#define {\bfseries SL\_\-CMD}~MAKE\_\-COMMAND('S','L')\label{hpgsreader_8h_abb05ae88dd8995ac8e1b302a792612c7}
+
+\item 
+\#define {\bfseries SM\_\-CMD}~MAKE\_\-COMMAND('S','M')\label{hpgsreader_8h_a1fc7af83959a967c7af7236ba1999833}
+
+\item 
+\#define {\bfseries SP\_\-CMD}~MAKE\_\-COMMAND('S','P')\label{hpgsreader_8h_a238d5dba110652313b5b0bd4374921a4}
+
+\item 
+\#define {\bfseries SR\_\-CMD}~MAKE\_\-COMMAND('S','R')\label{hpgsreader_8h_ad3465143c05373320a4af026815037f3}
+
+\item 
+\#define {\bfseries SS\_\-CMD}~MAKE\_\-COMMAND('S','S')\label{hpgsreader_8h_ab610fdaab244557cdcd355b330121963}
+
+\item 
+\#define {\bfseries TR\_\-CMD}~MAKE\_\-COMMAND('T','R')\label{hpgsreader_8h_af6601cf20799d3ce9ff7a6dd92a8ef17}
+
+\item 
+\#define {\bfseries UL\_\-CMD}~MAKE\_\-COMMAND('U','L')\label{hpgsreader_8h_ad90c8439ec9229b38140b8271d4afd19}
+
+\item 
+\#define {\bfseries WG\_\-CMD}~MAKE\_\-COMMAND('W','G')\label{hpgsreader_8h_ad3f341bed7d3d5bc787c0b6a48b58978}
+
+\item 
+\#define {\bfseries WU\_\-CMD}~MAKE\_\-COMMAND('W','U')\label{hpgsreader_8h_a79de8678b6b33dda1e6602cd6d0f536f}
+
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct {\bf hpgs\_\-reader\_\-poly\_\-point\_\-st} {\bfseries hpgs\_\-reader\_\-poly\_\-point}\label{group__reader_ga4233c42f8f157dfd34fbf704a9eefd11}
+
+\item 
+typedef struct {\bf hpgs\_\-reader\_\-pcl\_\-palette\_\-st} {\bfseries hpgs\_\-reader\_\-pcl\_\-palette}\label{group__reader_ga23384ae34cc53b73e033a90721614351}
+
+\item 
+typedef int($\ast$ {\bfseries hpgs\_\-reader\_\-hpglcmd\_\-func\_\-t} )({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga40224d7369a3a297ff59fc5d3fb81f1c}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-check\_\-param\_\-end} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gafd6d559ddde9821fdb9664ed9b350437}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bf hpgs\_\-reader\_\-read\_\-pcl\_\-int} ({\bf hpgs\_\-reader} $\ast$reader, int $\ast$x, int $\ast$sign)
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bf hpgs\_\-reader\_\-read\_\-int} ({\bf hpgs\_\-reader} $\ast$reader, int $\ast$x)
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bf hpgs\_\-reader\_\-read\_\-double} ({\bf hpgs\_\-reader} $\ast$reader, double $\ast$x)
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-read\_\-point} ({\bf hpgs\_\-reader} $\ast$reader, {\bf hpgs\_\-point} $\ast$p, int xform)\label{group__reader_gaf2f8dd795fe271aaa65b18b76411c74c}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bf hpgs\_\-reader\_\-read\_\-new\_\-string} ({\bf hpgs\_\-reader} $\ast$reader, char $\ast$str)
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-read\_\-label\_\-string} ({\bf hpgs\_\-reader} $\ast$reader, char $\ast$str)\label{group__reader_ga5f24e8cf1310c401bc7fc8881f9a0879}
+
+\item 
+HPGS\_\-INTERNAL\_\-API void {\bfseries hpgs\_\-reader\_\-set\_\-page\_\-matrix} ({\bf hpgs\_\-reader} $\ast$reader, const {\bf hpgs\_\-bbox} $\ast$bb)\label{group__reader_ga72c7fa4b8ac9145ebb61135d472bc9c9}
+
+\item 
+HPGS\_\-INTERNAL\_\-API void {\bfseries hpgs\_\-reader\_\-set\_\-default\_\-transformation} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gaf1fb3505e9053168ef9115846a28fec5}
+
+\item 
+HPGS\_\-INTERNAL\_\-API void {\bfseries hpgs\_\-reader\_\-set\_\-default\_\-state} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gabfe55a98e961170ac6d21984de801f1b}
+
+\item 
+HPGS\_\-INTERNAL\_\-API void {\bfseries hpgs\_\-reader\_\-set\_\-defaults} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga82d8ec9da507f8560f50120db8f2cc05}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-set\_\-plotsize} ({\bf hpgs\_\-reader} $\ast$reader, double xs, double ys)\label{group__reader_ga7cc94f7b85f7a36aac505caf0a50b999}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-showpage} ({\bf hpgs\_\-reader} $\ast$reader, int ipage)\label{group__reader_ga76c2b7dd212ad6e070a402292ad5122b}
+
+\item 
+HPGS\_\-INTERNAL\_\-API void {\bfseries hpgs\_\-reader\_\-set\_\-std\_\-pen\_\-colors} ({\bf hpgs\_\-reader} $\ast$reader, int i0, int n)\label{group__reader_ga483b4e78037cead23625259c92a529f2}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-checkpath} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gadf06a6ca3a27c7e4bc3dd88be6e31d70}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-moveto} ({\bf hpgs\_\-reader} $\ast$reader, {\bf hpgs\_\-point} $\ast$p)\label{group__reader_ga6b513e1487735f80cc5c8ae95b81f8ec}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-lineto} ({\bf hpgs\_\-reader} $\ast$reader, {\bf hpgs\_\-point} $\ast$p)\label{group__reader_ga09a8bc8661fdc23551f476a77397c567}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-curveto} ({\bf hpgs\_\-reader} $\ast$reader, {\bf hpgs\_\-point} $\ast$p1, {\bf hpgs\_\-point} $\ast$p2, {\bf hpgs\_\-point} $\ast$p3)\label{group__reader_ga162d23e7cf5ce4651e71134865e85120}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-stroke} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga0b36071af0bf02444c2610401d59b3b9}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-fill} ({\bf hpgs\_\-reader} $\ast$reader, hpgs\_\-bool winding)\label{group__reader_gabb6d9e05bfbcf4b99ae389bc23f3e1c6}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-closepath} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga58959cd98027b41a3abc3a90920e6a88}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-setpen} ({\bf hpgs\_\-reader} $\ast$reader, int pen)\label{group__reader_gaec59e9a64adea9ff35c300bdcdf71ede}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bf hpgs\_\-device\_\-setrgb\_\-all} ({\bf hpgs\_\-device} $\ast$dev, const {\bf hpgs\_\-color} $\ast$rgb)
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-label} ({\bf hpgs\_\-reader} $\ast$reader, const char $\ast$str, int str\_\-len, int face, int encoding, int posture, int weight, const {\bf hpgs\_\-point} $\ast$left\_\-vec, const {\bf hpgs\_\-point} $\ast$up\_\-vec, const {\bf hpgs\_\-point} $\ast$space\_\-vec)\label{group__reader_gac6c23c56f2bee0cabc2492a6438abcda}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-device\_\-label} ({\bf hpgs\_\-device} $\ast$dev, {\bf hpgs\_\-point} $\ast$pos, const char $\ast$str, int str\_\-len, int face, const char $\ast$encoding, int posture, int weight, const {\bf hpgs\_\-point} $\ast$left\_\-vec, const {\bf hpgs\_\-point} $\ast$up\_\-vec, const {\bf hpgs\_\-point} $\ast$space\_\-vec)\label{group__reader_gafd1779b4aa12943dfa10be814af2e3dd}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bf hpgs\_\-reader\_\-do\_\-PCL} ({\bf hpgs\_\-reader} $\ast$reader, hpgs\_\-bool take\_\-pos)
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bf hpgs\_\-reader\_\-do\_\-PJL} ({\bf hpgs\_\-reader} $\ast$reader)
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-push\_\-pcl\_\-palette} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga294cc9935b4d62e164171d27c0d81075}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-pop\_\-pcl\_\-palette} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gae17b8b5957ffe80f51220b6efbe8e6f2}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-AA} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga9a0a45b19f07f96bef55ddee09cdeea2}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-AC} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga20467dca742ce723837376425e024f8d}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-AD} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga252127da0d20f8cd4e12a237b6ffd607}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-AR} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga86a3dddc71091bb81d539c66d24fc4c9}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-AT} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gafaf903cb7a0bee57742b36cf3bda84ef}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-BP} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga69c12a593041db66395999b17ff614f3}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-BR} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga9a5a78c77c1bbe343f0a54a035b3daee}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-BZ} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga14d74945da68ed7c713e2ba8b6deef16}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-CI} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga7dd9c64eff1ea790e1b43a81b2586af6}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-CO} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga010ac6b403b6ef801122e303784506e3}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-CP} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga59c9616bc0e3e63266eede7f0e40ab27}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-CR} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga6f9a3d39f1ec43f65de23f39cbcc4bcd}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-DI} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gacb1099ab784c6f006f90a555e999d03c}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-DR} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga6fde6f8a776473acf6683ced91415743}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-DT} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga53fd0eac606f85f5a523f3b0e8eca709}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-DV} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga67a3da5778ba2345bcd7850ee1f3cf9c}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-EA} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga56f851fe681986c554fd9d7ecc922b46}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-EP} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga0bb9c47666480d821eee966fe07f8dee}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-ER} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gaa828610be5d48b3e772dfc7b271c45c8}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-ES} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gafed23058d33ebc96a782b855eb4f92e4}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-EW} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gae28138f75961e023bcfd78e64fc5ceee}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-FP} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga12b7528135c3ec735ade1c16de31fc07}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-FR} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gab9a653b9eb8e015b7ebcb70f90a05910}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-FT} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gaa708b9b01fd1206552a0d29d2e0577a7}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-IN} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga90d43ae4088c31f4410741183d965473}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-IP} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gab6d0c05663530d5753aa01d5175fe812}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-IR} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga58b821f02eea2f09c87eae16d12a65cf}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-IW} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga7d959866078c4b03f7a59e12a23f4584}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-LA} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gac0dda452214e934618ee2c81006c0841}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-LB} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga7a3fa037ff8e75768e32bc8c6608c735}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-LO} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gaf64432ba4e6d044698f624df106db95b}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-LT} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga82887bdfcf93658b4f7760cca796daf3}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-MC} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga1d5faab281e509d8f1ae6218e8e40667}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-MG} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga5e8e8febb5e02732d913ff5f4e1334c2}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-NP} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gafc2f2f2942ece9cdb6b78e77162ff769}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PC} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga26e3abc89cd90afe394f3c4a400f9886}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PA} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gab98375b63e2e33be791f57a3cba84c8c}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PD} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga5a74597276b52026baea444c783f093f}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PE} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gab89ccf2e907504a93092c06e6ff48c7f}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PG} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gaa352b34763e04c84c81d154c592c5cd2}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PM} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga1ccebaf839555816bb65f2f2547da7df}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PP} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gabd7b5192dd787f46ff9fc8f688e9a4ff}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PR} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga59dde778a90ffa3910b2f6586e30325d}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PS} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga75c6bfe334f61695beaa66b3bfede120}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PU} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gab80900542e36944aa5eb9f4608313968}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-PW} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gabbd62a9fd3ef05c0baaa4a0d87d912b0}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-RA} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga5dc2941db3a63239f3339281e332c6f4}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-RO} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gada03ea2ce58484b8b62c357e9049d914}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-RR} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga6f0e9b813af1d2525059e7ce16cf82b1}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-RT} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gaf3dbd72002d495479a4eff8f3602cd0e}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-SA} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga7e0abf5b2426bd0e603828501bb36c9e}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-SC} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gae3fbbafae8de8b6dea831b9bf24242d3}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-SD} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gac381a958a3fa32fd544c10c225986005}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-SI} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gadaad71bd774a907fde56590f017b1c3f}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-SL} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga3f43c65d53fa49d9928536e2340cc1e5}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-SM} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga141bb3fe1f17f7cdbddefef00990fd9d}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-SP} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gaf6d8257afede41554e0ed06b30b8df8b}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-SR} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga4a24948f7c51bcd66eef03287ee32817}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-SS} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_gaf1ec4288bbddaab160fbbd62087657ea}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-TR} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga1d1fef69731ae8b75b6e8888dc3d4e09}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-UL} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga9d7b05da59f6c4ffe747bfeba933f753}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-WG} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga5c79a4c2eeda221339afbd0b4d1e3007}
+
+\item 
+HPGS\_\-INTERNAL\_\-API int {\bfseries hpgs\_\-reader\_\-do\_\-WU} ({\bf hpgs\_\-reader} $\ast$reader)\label{group__reader_ga53cfcda314a1990582befe9a02ec2038}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The private interfaces for implementing the HPGL reader. A header file, which declares the private structures and functions used to implement the HPGL reader {\ttfamily hpgs\_\-reader}. 

@@ -1,0 +1,5 @@
+debian/tmp/usr/x86_64-pc-mingw32/lib/libhpgs.dll.a
+debian/tmp/usr/x86_64-pc-mingw32/lib/pkgconfig/hpgs.pc
+debian/tmp/usr/x86_64-pc-mingw32/include/hpgs.h
+debian/tmp/usr/x86_64-pc-mingw32/include/hpgsplugin.h
+debian/tmp/usr/x86_64-pc-mingw32/include/hpgsmutex.h

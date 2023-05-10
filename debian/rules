@@ -1,0 +1,61 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+DEB_INSTALL_DOCS_ALL := INSTALL README LICENSE TODO
+
+#
+# License is used by nsis installers, so don't compress it.
+#
+DEB_COMPRESS_EXCLUDE := LICENSE
+
+DEB_SHLIBDEPS_INCLUDE := debian/tmp/usr/bin/hpgs
+
+DEB_DH_ALWAYS_EXCLUDE := .svn
+
+package = hpgs
+docdir = debian/tmp/usr/share/doc/$(package)-doc
+
+INSTALL_PROGRAM = install
+
+builddir = build/unix-shared
+w32builddir = build/minx-shared
+w64builddir = build/minx-64-shared
+
+# do not strip any mingw library.
+# call 'strip' on a mingw lib*.a file causes the ranlib information to
+# be discarded rendering the libraries useless.
+DEB_DH_STRIP_ARGS := -Xpc-mingw32
+
+common-build-arch::
+	cd $(builddir) && $(MAKE) COPT="-O2" prefix="/usr"
+	cd $(w32builddir) && $(MAKE) COPT="-O2" prefix="/usr/i686-pc-mingw32"
+	cd $(w64builddir) && $(MAKE) COPT="-O2" prefix="/usr/x86_64-pc-mingw32"
+	touch common-build-arch
+
+clean::
+	rm -f compile common-install-arch common-build-arch
+	rm -rf *~ debian/tmp debian/*~ debian/files* debian/substvars debian/compat
+	cd $(builddir) && make distclean
+	cd $(w32builddir) && make distclean
+	cd $(w64builddir) && make distclean
+
+common-install-arch::
+	rm -rf debian/tmp
+	install -d debian/tmp/DEBIAN $(docdir)
+	cp -pr doc/* $(docdir)
+	mkdir debian/tmp/usr/bin
+	mkdir debian/tmp/usr/include
+	mkdir debian/tmp/usr/lib
+	mkdir debian/tmp/usr/i686-pc-mingw32
+	mkdir debian/tmp/usr/i686-pc-mingw32/bin
+	mkdir debian/tmp/usr/i686-pc-mingw32/include
+	mkdir debian/tmp/usr/i686-pc-mingw32/lib
+	mkdir debian/tmp/usr/x86_64-pc-mingw32
+	mkdir debian/tmp/usr/x86_64-pc-mingw32/bin
+	mkdir debian/tmp/usr/x86_64-pc-mingw32/include
+	mkdir debian/tmp/usr/x86_64-pc-mingw32/lib
+	cd $(builddir) &&  $(MAKE) install-devel DESTDIR=../../debian/tmp prefix="/usr"
+	cd $(w32builddir) &&  $(MAKE) install-devel DESTDIR=../../debian/tmp prefix="/usr/i686-pc-mingw32" EXTRA_INSTALL_RULES="install-po install-nsis"
+	cd $(w64builddir) &&  $(MAKE) install-devel DESTDIR=../../debian/tmp prefix="/usr/x86_64-pc-mingw32" EXTRA_INSTALL_RULES="install-po install-nsis"
+	touch common-install-arch

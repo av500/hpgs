@@ -1,0 +1,36 @@
+\section{hpgs\_\-paint\_\-color\_\-st Struct Reference}
+\label{structhpgs__paint__color__st}\index{hpgs\_\-paint\_\-color\_\-st@{hpgs\_\-paint\_\-color\_\-st}}
+
+
+An image RGB color with an optional palette index.  
+
+
+
+
+{\ttfamily \#include $<$hpgs.h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char {\bfseries r}\label{structhpgs__paint__color__st_a12daa9c92a80e567247c59451d8fe4f1}
+
+\item 
+unsigned char {\bfseries g}\label{structhpgs__paint__color__st_adef6a2ae2a146ecea42cfad60c276a9b}
+
+\item 
+unsigned char {\bfseries b}\label{structhpgs__paint__color__st_a154b2f2f04b37f774bc731d837161a27}
+
+\item 
+unsigned char {\bfseries index}\label{structhpgs__paint__color__st_a7335459b625a2c15af167e518eac9fe4}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An image RGB color with an optional palette index. This structure has a public alias {\ttfamily hpgs\_\-paint\_\-color} and represents an image RGB color with an optional palette index consisting of single byte r,g and b color values in the range 0 to 255 as well as of a single byte palette index.
+
+For calculating a suitable palette index for a given {\ttfamily hpgs\_\-image} consider calling {\ttfamily hpgs\_\-image\_\-define\_\-color}. 
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+{\bf hpgs.h}\end{DoxyCompactItemize}

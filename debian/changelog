@@ -1,0 +1,48 @@
+hpgs (1.1.8-1) any; urgency=low
+
+  * hpgs-1.1.8-1 release published to berlios.de
+
+ -- Wolfgang Glas (ev-i Informationstechnologie GmbH) <wolfgang.glas@ev-i.at>  Wed, 16 Jun 2010 19:39:13 +0200
+
+hpgs (1.1.8-0) any; urgency=medium
+
+  * Fix a long-standing polygon fill-instead-of-stroke problem.
+  * Avoid misplaced PCL images when leaving and entering the PCL context.
+
+ -- Wolfgang Glas (ev-i Informationstechnologie GmbH) <wolfgang.glas@ev-i.at>  Thu, 10 Jun 2010 22:22:03 +0200
+
+hpgs (1.1.7-3) any; urgency=high
+
+  * Check miter limit values in LA command according to the spec.
+
+ -- Wolfgang Glas (ev-i Informationstechnologie GmbH) <wolfgang.glas@ev-i.at>  Tue, 25 May 2010 21:53:36 +0200
+
+hpgs (1.1.7-2) any; urgency=high
+
+  * Optimize hpszostream in order to free all temporary buffers
+    after z_flush().
+  * Fix memory corruption, when hpgs_gaste_setdash is called with
+    own dash_lengths ptr.
+  
+ -- Wolfgang Glas (ev-i Informationstechnologie GmbH) <wolfgang.glas@ev-i.at>  Wed, 14 Apr 2010 09:26:27 +0200
+
+hpgs (1.1.7-1) any; urgency=high
+
+  * Official 1.1.7 release  published to berlios.de
+
+ -- Wolfgang Glas (ev-i Informationstechnologie GmbH) <wolfgang.glas@ev-i.at>  Sat, 02 Jan 2010 20:32:36 +0100
+
+hpgs (1.1.7-0) any; urgency=medium
+
+  * Switch to debian-based release management, changelog is now maintained
+    by hand.
+  * Version 1.1.7 fixes erroneously scaled line widths and an
+    off-by-one error in PCL compression mode 10.
+
+ -- Wolfgang Glas (ev-i Informationstechnologie GmbH) <wolfgang.glas@ev-i.at>  Fri, 01 Jan 2010 16:29:01 +0100
+
+hpgs (1.1.0-3ubuntu1) feisty; urgency=low
+
+  * Original debian package for ubunutu feisty.
+	
+ -- Wolfgang Glas <wolfgang.glas@ev-i.at>  Thu,  3 May 2007 17:35:49 +0200

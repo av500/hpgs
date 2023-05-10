@@ -1,0 +1,63 @@
+Source: hpgs
+Priority: extra
+Section: utils
+Maintainer: Wolfgang Glas <wolfgang.glas@ev-i.at>
+Build-Depends: cdbs, debhelper (>> 5), gettext, libpng12-dev, zlib1g-dev, pkg-config, mingw-w32-pkg-config, mingw-w32-libpng, mingw-w32-libiconv, mingw-w32-gettext, mingw-w64-pkg-config, mingw-w64-libpng, mingw-w64-libiconv, mingw-w64-gettext
+
+Package: hpgs
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: HPGS is an HPGL/2 interpreter, which renders HPGL/2 through a
+ Postscript-like API. Currently, it can render to eps and png files.
+ For rendering the scenery to pixel formats, a rendering engine has been coded,
+ which draws vector graphics into pixel buffers.
+
+Package: hpgs-dev
+Section: devel
+Architecture: any
+Depends: libpng12-dev, hpgs (= ${Source-Version})
+Description: This package contains files required to develop applications
+ using the hpgs libraries.
+
+Package: hpgs-doc
+Section: devel
+Architecture: any
+Depends: 
+Description: This package contains the documentation for developping applications
+ using the hpgs libraries.
+
+Package: mingw-w32-hpgs
+Architecture: any
+Depends: mingw-w32-libpng, mingw-w32-libiconv, mingw-w32-gettext
+Description: HPGS is an HPGL/2 interpreter, which renders HPGL/2 through a
+ Postscript-like API. Currently, it can render to eps and png files.
+ For rendering the scenery to pixel formats, a rendering engine has been coded,
+ which draws vector graphics into pixel buffers.
+
+Package: mingw-w32-hpgs-dev
+Section: devel
+Architecture: any
+Depends: mingw-w32-hpgs (= ${Source-Version})
+Description: This package contains files required to develop applications
+ using the hpgs libraries.
+
+Package: mingw-w64-hpgs
+Architecture: any
+Depends: mingw-w64-libpng, mingw-w64-libiconv, mingw-w64-gettext
+Description: HPGS is an HPGL/2 interpreter, which renders HPGL/2 through a
+ Postscript-like API. Currently, it can render to eps and png files.
+ For rendering the scenery to pixel formats, a rendering engine has been coded,
+ which draws vector graphics into pixel buffers.
+
+Package: mingw-w64-hpgs-dev
+Section: devel
+Architecture: any
+Depends: mingw-w64-hpgs (= ${Source-Version})
+Description: This package contains files required to develop applications
+ using the hpgs libraries.
+
+Package: hpgs-nsis
+Section: devel
+Architecture: any
+Depends: mingw-w32-hpgs-dev (= ${Source-Version}), mingw-w64-hpgs-dev (= ${Source-Version}), nsis
+Description: This package contains the input files for generating the hpgs windows installers.
